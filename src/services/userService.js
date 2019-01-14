@@ -1,12 +1,13 @@
 import http from "./httpService";
-import { apiUrl } from "../config.json";
+import { loginUrl } from "../config.json";
 
-const apiEndpoint = apiUrl + "/users";
+const addUser = loginUrl + "/add";
+const getUsers = loginUrl + "/all";
 
 export function register(user) {
-  return http.post(apiEndpoint, {
-    email: user.username,
-    password: user.password,
-    name: user.name
-  });
+  return http.post(addUser, user);
 }
+export function listUsers() {
+  return http.get(getUsers);
+}
+export function deleteUser() {}

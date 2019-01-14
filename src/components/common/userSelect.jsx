@@ -1,14 +1,14 @@
 import React from "react";
 
-const Select = ({ name, label, options, error, ...rest }) => {
+const UserSelect = ({ name, options, error, ...rest }) => {
   return (
     <div className="form-group">
-      <label htmlFor={name}>{label}</label>
       <select name={name} id={name} {...rest} className="form-control">
-        <option value="" />
+        <option value="Switch user">Switch user</option>
+
         {options.map(option => (
           <option key={option.email} value={option.email}>
-            {option.name}
+            {option.email} * * {option.country} * * {option.role}
           </option>
         ))}
       </select>
@@ -17,4 +17,4 @@ const Select = ({ name, label, options, error, ...rest }) => {
   );
 };
 
-export default Select;
+export default UserSelect;

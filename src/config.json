@@ -1,3 +1,5 @@
 {
-  "apiUrl": "http://localhost:3900/api"
+  "loginUrl": "http://login.jx-staging.35.228.138.240.nip.io/api/v1/user",
+  "profileUrl": "http://profile.jx-staging.35.228.138.240.nip.io/api/v1/public",
+  "contractUrl": "http://contracts.jx-staging.35.228.138.240.nip.io/api/v1/contract"
 }

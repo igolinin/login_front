@@ -1,11 +1,13 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import users from "../services/switcherService";
+import UserSelect from "./common/userSelect";
 
-const NavBar = ({ user }) => {
+const NavBar = ({ user, SwitchUser }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <Link className="navbar-brand" to="/">
-        Vidly
+        Auth
       </Link>
       <button
         className="navbar-toggler"
@@ -20,15 +22,13 @@ const NavBar = ({ user }) => {
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav">
-          <NavLink className="nav-item nav-link" to="/movies">
-            Movies
+          <NavLink className="nav-item nav-link" to="/contracts">
+            Contracts
           </NavLink>
-          <NavLink className="nav-item nav-link" to="/customers">
+          <NavLink className="nav-item nav-link" to="/users">
             Customers
           </NavLink>
-          <NavLink className="nav-item nav-link" to="/rentals">
-            Rentals
-          </NavLink>
+
           {!user && (
             <React.Fragment>
               <NavLink className="nav-item nav-link" to="/login">
@@ -41,14 +41,20 @@ const NavBar = ({ user }) => {
           )}
           {user && (
             <React.Fragment>
-              <NavLink className="nav-item nav-link" to="/profile">
-                {user.name}
+              <NavLink className="nav-item nav-link" to={"/me/" + user.email}>
+                {user.email}
               </NavLink>
               <NavLink className="nav-item nav-link" to="/logout">
                 Logout
               </NavLink>
             </React.Fragment>
           )}
+          <UserSelect
+            name="userSwitcher"
+            options={users}
+            error=""
+            onChange={SwitchUser}
+          />
         </div>
       </div>
     </nav>
