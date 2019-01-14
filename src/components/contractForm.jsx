@@ -17,10 +17,10 @@ class ContractForm extends Form {
   };
 
   schema = {
-    /* _id: Joi.string(),
+    _id: Joi.string(),
     manager: Joi.string()
       .required()
-      .label("Manager"), */
+      .label("Manager"),
     service: Joi.string()
       .required()
       .label("Service"),
@@ -66,10 +66,11 @@ class ContractForm extends Form {
   mapToViewModel(contract) {
     return {
       _id: contract._id,
-      manager: this.props.user.email,
+      manager: contract.manager,
       client: contract.client,
       total: contract.total,
-      expires: contract.expires
+
+      service: contract.service
     };
   }
 

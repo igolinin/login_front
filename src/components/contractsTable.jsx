@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import auth from "../services/authService";
 import { Link } from "react-router-dom";
 import Table from "./common/table";
-import Like from "./common/like";
+import Approve from "./common/approve";
 
 class ContractsTable extends Component {
   columns = [
@@ -15,13 +15,15 @@ class ContractsTable extends Component {
     },
     { path: "manager", label: "Manager" },
     { path: "client", label: "Client" },
+    { path: "total", label: "Total" },
     { path: "service", label: "Service" },
     {
-      key: "like",
+      key: "approve",
+      label: "Approved",
       content: contract => (
-        <Like
-          liked={contract.liked}
-          onClick={() => this.props.onLike(contract)}
+        <Approve
+          approved_by={contract.approved_by}
+          onClick={() => this.props.onApprove(contract)}
         />
       )
     }
@@ -42,7 +44,7 @@ class ContractsTable extends Component {
   constructor() {
     super();
     const user = auth.getCurrentUser();
-    if (user && user.isAdmin) this.columns.push(this.deleteColumn);
+    if (user && user.role === "admin") this.columns.push(this.deleteColumn);
   }
 
   render() {

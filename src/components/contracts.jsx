@@ -3,7 +3,11 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import ContractsTable from "./contractsTable";
 import Pagination from "./common/pagination";
-import { getContracts, deleteContract } from "../services/contractService";
+import {
+  getContracts,
+  deleteContract,
+  approveContract
+} from "../services/contractService";
 import { paginate } from "../utils/paginate";
 import _ from "lodash";
 import SearchBox from "./searchBox";
@@ -37,11 +41,12 @@ class Contracts extends Component {
     }
   };
 
-  handleLike = contract => {
+  handleApprove = async contract => {
     const contracts = [...this.state.contracts];
     const index = contracts.indexOf(contract);
     contracts[index] = { ...contracts[index] };
-    contracts[index].liked = !contracts[index].liked;
+    contracts[index].approved_by = !contracts[index].approved_by;
+    await approveContract(contracts[index]._id);
     this.setState({ contracts });
   };
 
@@ -90,7 +95,6 @@ class Contracts extends Component {
 
     return (
       <div className="row">
-        <div className="col-3" />
         <div className="col">
           {user && (
             <Link
@@ -106,7 +110,7 @@ class Contracts extends Component {
           <ContractsTable
             contracts={contracts}
             sortColumn={sortColumn}
-            onLike={this.handleLike}
+            onApprove={this.handleApprove}
             onDelete={this.handleDelete}
             onSort={this.handleSort}
           />

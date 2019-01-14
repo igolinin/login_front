@@ -43,7 +43,7 @@ class App extends Component {
       <React.Fragment>
         <ToastContainer />
         <NavBar user={user} SwitchUser={this.SwitchUser} />
-        <main className="container">
+        <main className="container-fluid">
           <Switch>
             <Route path="/register" component={RegisterForm} />
             <Route path="/login" component={LoginForm} />
