@@ -7,8 +7,8 @@ RUN npm install react-scripts@1.1.1 -g --silent
 COPY . /usr/src/app
 RUN npm run build
 
-FROM node:9.6.1-slim
-RUN mkdir /usr/src/app
+FROM node:9.6.1-alpine
+RUN mkdir -p /usr/src/app
 EXPOSE 8080
 WORKDIR /usr/src/app
 COPY --from=builder /usr/src/app/build /usr/src/app/build
