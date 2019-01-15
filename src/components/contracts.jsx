@@ -22,10 +22,19 @@ class Contracts extends Component {
   };
 
   async componentDidMount() {
-    const { data: contracts } = await getContracts();
-    this.setState({ contracts });
+    const { data } = await getContracts();
+    console.log(data);
+    const filtered = this.filteredByUser(data);
+    console.log(filtered);
+    this.setState({ contracts: filtered });
   }
-
+  filteredByUser = contracts => {
+    if (this.props.user.role === "client")
+      return contracts.filter(m => {
+        return m.client === this.props.user.email;
+      });
+    else return contracts;
+  };
   handleDelete = async contract => {
     const originalContracts = this.state.contracts;
     const contracts = originalContracts.filter(m => m._id !== contract._id);

@@ -18,6 +18,8 @@ import "react-toastify/dist/ReactToastify.css";
 import users from "./services/switcherService";
 import "./App.css";
 import ContractForm from "./components/contractForm";
+import UserRoleForm from "./components/userRoleForm";
+//import httpService from "./services/httpService";
 
 class App extends Component {
   state = {};
@@ -32,6 +34,7 @@ class App extends Component {
       return n.email === event.target.value;
     })[0];
     auth.loginWithJwt(user.jwt);
+
     this.setState({ user });
     return <Redirect to={"/me/" + user.email} />;
   };
@@ -66,12 +69,12 @@ class App extends Component {
               path="/contracts"
               render={props => <Contracts {...props} user={this.state.user} />}
             />
+            <Route path="/users/:email" component={UserRoleForm} />} />
             <Route
               path="/users"
               render={props => <Users {...props} user={this.state.user} />}
             />
             <Route path="/customers" component={Customers} />
-
             <Route path="/not-found" component={NotFound} />
             <Redirect from="/" exact to="/contracts" />
             <Redirect to="/not-found" />

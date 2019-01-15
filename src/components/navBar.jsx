@@ -25,10 +25,11 @@ const NavBar = ({ user, SwitchUser }) => {
           <NavLink className="nav-item nav-link" to="/contracts">
             Contracts
           </NavLink>
-          <NavLink className="nav-item nav-link" to="/users">
-            Customers
-          </NavLink>
-
+          {user && user.role === "admin" && (
+            <NavLink className="nav-item nav-link" to="/users">
+              Customers
+            </NavLink>
+          )}
           {!user && (
             <React.Fragment>
               <NavLink className="nav-item nav-link" to="/login">

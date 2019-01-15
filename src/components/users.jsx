@@ -117,6 +117,7 @@ class Users extends Component {
           <p>Showing {totalCount} users in the database.</p>
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <UsersTable
+            roles={this.state.roles}
             users={users}
             sortColumn={sortColumn}
             onLike={this.handleLike}

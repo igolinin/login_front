@@ -2,24 +2,20 @@ import React, { Component } from "react";
 import auth from "../services/authService";
 import { Link } from "react-router-dom";
 import Table from "./common/table";
-import Like from "./common/like";
 
 class UsersTable extends Component {
   columns = [
     {
       path: "fullName",
       label: "Full Name",
-      content: user => <Link to={`/users/${user._id}`}>{user.fullName}</Link>
+      content: user => <Link to={`/users/${user.email}`}>{user.fullName}</Link>
     },
-    { path: "role", label: "role" },
-    { path: "email", label: "Email" },
-    { path: "country", label: "Country" },
     {
-      key: "like",
-      content: user => (
-        <Like liked={user.liked} onClick={() => this.props.onLike(user)} />
-      )
-    }
+      path: "role",
+      label: "role"
+    },
+    { path: "email", label: "Email" },
+    { path: "country", label: "Country" }
   ];
 
   deleteColumn = {
@@ -37,7 +33,7 @@ class UsersTable extends Component {
   constructor() {
     super();
     const user = auth.getCurrentUser();
-    if (user && user.isAdmin) this.columns.push(this.deleteColumn);
+    if (user && user.role === "admin") this.columns.push(this.deleteColumn);
   }
 
   render() {
