@@ -75,7 +75,11 @@ class ContractForm extends Form {
   }
 
   doSubmit = async () => {
-    await saveContract(this.state.data);
+    try {
+      await saveContract(this.state.data);
+    } catch (ex) {
+      console.log(ex);
+    }
 
     this.props.history.push("/contracts");
   };
@@ -88,7 +92,6 @@ class ContractForm extends Form {
           {this.renderInput("service", "Service")}
           {this.renderSelect("client", "Client", this.state.clients)}
           {this.renderInput("total", "Total", "number")}
-
           {this.renderButton("Save")}
         </form>
       </div>
