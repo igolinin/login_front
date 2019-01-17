@@ -20,12 +20,15 @@ class ContractsTable extends Component {
     {
       key: "approve",
       label: "Approved",
-      content: contract => (
-        <Approve
-          approved_by={contract.approved_by}
-          onClick={() => this.props.onApprove(contract)}
-        />
-      )
+      content: contract => {
+        if (this.props.user.email !== contract.manager || contract.approved_by)
+          return (
+            <Approve
+              approved_by={contract.approved_by}
+              onClick={() => this.props.onApprove(contract)}
+            />
+          );
+      }
     }
   ];
 

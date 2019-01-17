@@ -1,7 +1,7 @@
 import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
-import { getMe, updateMe } from "../services/profileService";
+import { getMe, updateRole } from "../services/profileService";
 //import auth from "../services/authService";
 
 class UserRoleForm extends Form {
@@ -37,9 +37,13 @@ class UserRoleForm extends Form {
     await this.populateUser();
   }
   doSubmit = async () => {
-    await updateMe(this.state.data);
+    const body = {
+      email: this.state.data.email,
+      newRole: this.state.data.role
+    };
+    await updateRole(body);
 
-    this.props.history.push("/contracts");
+    this.props.history.push("/users");
   };
   async populateUser() {
     try {

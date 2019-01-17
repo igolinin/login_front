@@ -36,9 +36,14 @@ class ContractForm extends Form {
 
   async populateClients() {
     const { data } = await getUsers();
-    const clients = data.map(n => {
-      return { name: n.email, _id: n._id };
-    });
+    const clients = data
+
+      .filter(n => {
+        return n.country === this.props.user.country;
+      })
+      .map(n => {
+        return { name: n.email, _id: n._id };
+      });
     console.log(clients);
 
     this.setState({ clients });

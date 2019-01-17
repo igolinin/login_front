@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import Movies from "./components/movies";
 import Users from "./components/users";
 import Contracts from "./components/contracts";
-import MovieForm from "./components/movieForm";
 import Customers from "./components/customers";
 import NotFound from "./components/notFound";
 import NavBar from "./components/navBar";
@@ -55,15 +53,10 @@ class App extends Component {
               render={props => <MeForm {...props} user={this.state.user} />}
             />
             <Route path="/logout" component={Logout} />
-            <ProtectedRoute path="/movies/:id" component={MovieForm} />
             <Route
               exact
               path="/contracts/:id"
               render={props => <ContractForm {...props} user={user} />}
-            />
-            <Route
-              path="/movies"
-              render={props => <Movies {...props} user={this.state.user} />}
             />
             <ProtectedRoute
               path="/contracts"

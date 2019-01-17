@@ -54,9 +54,11 @@ class Contracts extends Component {
     const contracts = [...this.state.contracts];
     const index = contracts.indexOf(contract);
     contracts[index] = { ...contracts[index] };
-    contracts[index].approved_by = !contracts[index].approved_by;
-    await approveContract(contracts[index]._id);
-    this.setState({ contracts });
+    if (!contracts[index].approved_by) {
+      contracts[index].approved_by = !contracts[index].approved_by;
+      await approveContract(contracts[index]._id);
+      this.setState({ contracts });
+    }
   };
 
   handlePageChange = page => {
@@ -105,7 +107,7 @@ class Contracts extends Component {
     return (
       <div className="row">
         <div className="col">
-          {user && (
+          {user.role === "manager" && (
             <Link
               to="/contracts/new"
               className="btn btn-primary"
@@ -122,6 +124,7 @@ class Contracts extends Component {
             onApprove={this.handleApprove}
             onDelete={this.handleDelete}
             onSort={this.handleSort}
+            user={user}
           />
           <Pagination
             itemsCount={totalCount}
